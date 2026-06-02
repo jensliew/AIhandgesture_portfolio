@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  --bg-base: #090b11;
+  --bg-surface: rgba(19, 25, 39, 0.88);
+  --bg-elevated: rgba(255, 255, 255, 0.05);
+  --ink-strong: #dbe4f0;
+  --ink-muted: #97a7bb;
+  --accent-cyan: #63e0ff;
+  --accent-rose: #ff8ca8;
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --shadow-deep: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--ink-strong);
+  background:
+    radial-gradient(circle at top, rgba(99, 224, 255, 0.08), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(255, 140, 168, 0.1), transparent 25%),
+    var(--bg-base);
+  font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+  pointer-events: none;
+}
+
+.input_video,
+#hand-cursor[hidden] {
+  display: none;
+}
+
+#lab-app,
+#lab-detail-root,
+#lab-support-root {
+  position: relative;
+  z-index: 1;
+}
+
+.lab-shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(240px, 280px) minmax(0, 1fr) minmax(280px, 320px);
+  gap: 18px;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.lab-identity-rail,
+.lab-directory-rail,
+.lab-showcase-stage {
+  min-height: 0;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-surface);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-deep);
+}
+
+.lab-identity-rail,
+.lab-directory-rail {
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.lab-identity-rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lab-eyebrow {
+  margin: 0 0 16px;
+  color: var(--accent-cyan);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.lab-title {
+  margin: 0 0 12px;
+  font-size: clamp(2.2rem, 4vw, 3.75rem);
+  line-height: 0.95;
+}
+
+.lab-intro {
+  margin: 0;
+  max-width: 18rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.lab-showcase-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 36px;
+}
+
+#webgl-container,
+#css3d-container,
+.lab-stage-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+#webgl-container {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(99, 224, 255, 0.18), transparent 0 28%),
+    radial-gradient(circle at 70% 65%, rgba(255, 140, 168, 0.16), transparent 0 24%);
+}
+
+#css3d-container {
+  pointer-events: none;
+}
+
+.lab-stage-overlay {
+  background:
+    linear-gradient(180deg, rgba(9, 11, 17, 0.12), rgba(9, 11, 17, 0.7)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 45%);
+}
+
+.lab-directory-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lab-gesture-toggle {
+  border: 1px solid rgba(99, 224, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.95rem 1.1rem;
+  color: var(--ink-strong);
+  background: linear-gradient(135deg, rgba(99, 224, 255, 0.18), rgba(255, 140, 168, 0.16));
+  font: inherit;
+  text-align: left;
+}
+
+.lab-directory-list {
+  display: grid;
+  gap: 12px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.lab-directory-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  padding: 14px;
+  color: inherit;
+  background: var(--bg-elevated);
+  font: inherit;
+  text-align: left;
+}
+
+.lab-directory-item.is-active {
+  border-color: rgba(255, 140, 168, 0.35);
+  background: linear-gradient(180deg, rgba(255, 140, 168, 0.14), rgba(255, 255, 255, 0.05));
+}
+
+.lab-directory-index {
+  color: var(--accent-cyan);
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+}
+
+.lab-directory-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.lab-directory-copy strong {
+  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+}
+
+.lab-directory-copy small {
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+#lab-detail-root,
+#lab-support-root {
+  display: contents;
+}
+
+@media (max-width: 1100px) {
+  body {
+    overflow: auto;
+  }
+
+  .lab-shell {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .lab-showcase-stage {
+    min-height: 48vh;
+  }
+}
