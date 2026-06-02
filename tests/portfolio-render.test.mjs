@@ -19,12 +19,17 @@ test("buildShellMarkup includes the three-panel lab structure", () => {
   assert.match(html, /<div id="css3d-container" aria-hidden="true"><\/div>/);
   assert.match(html, /<section id="lab-detail-root"><\/section>/);
   assert.match(html, /<section id="lab-support-root"><\/section>/);
+  assert.match(html, />Open dossier<\/button>/);
 });
 
-test("buildDetailMarkup renders the current project title and manual close control", () => {
+test("buildDetailMarkup renders the current project title, manual close control, and hero from cover", () => {
   const state = { ...createInitialState(portfolioRecords), detail: { isOpen: true } };
-  const html = buildDetailMarkup({ state, activeRecord: portfolioRecords[0], copy: uiCopy.en });
+  const html = buildDetailMarkup({ state, activeRecord: portfolioRecords[0] });
 
   assert.match(html, /Liew Shen Wei/);
   assert.match(html, /data-action="detail\/close"/);
+  assert.match(html, /class="lab-dossier-hero" style="background-image:url\('\.\/images\/profile\.png'\)"/);
+  assert.match(html, /class="detail-hero"/);
+  assert.match(html, /class="detail-content-wrap"/);
+  assert.match(html, />Close<\/button>/);
 });

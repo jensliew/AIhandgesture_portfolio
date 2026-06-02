@@ -263,11 +263,15 @@ body::before {
   gap: 18px;
 }
 
-.lab-dossier-body .detail-hero {
+.lab-dossier-hero {
   min-height: 220px;
   border-radius: 20px;
   background-position: center;
   background-size: cover;
+}
+
+.lab-dossier-body .detail-hero {
+  display: none;
 }
 
 .lab-dossier-body .detail-content-wrap {

@@ -17,7 +17,7 @@ function render() {
   const detailRoot = root.querySelector("#lab-detail-root");
 
   if (detailRoot) {
-    detailRoot.innerHTML = buildDetailMarkup({ state, activeRecord, copy });
+    detailRoot.innerHTML = buildDetailMarkup({ state, activeRecord });
   }
 }
 
@@ -30,21 +30,22 @@ if (root) {
       return;
     }
 
+    let nextState = state;
+
     if (actionEl.dataset.action === "project/select") {
-      state = reduceAppState(state, {
+      nextState = reduceAppState(state, {
         type: "project/select",
         payload: Number(actionEl.dataset.projectId)
       });
+    } else if (actionEl.dataset.action === "detail/open") {
+      nextState = reduceAppState(state, { type: "detail/open" });
+    } else if (actionEl.dataset.action === "detail/close") {
+      nextState = reduceAppState(state, { type: "detail/close" });
+    } else {
+      return;
     }
 
-    if (actionEl.dataset.action === "detail/open") {
-      state = reduceAppState(state, { type: "detail/open" });
-    }
-
-    if (actionEl.dataset.action === "detail/close") {
-      state = reduceAppState(state, { type: "detail/close" });
-    }
-
+    state = nextState;
     render();
   });
 }

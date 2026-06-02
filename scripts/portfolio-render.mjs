@@ -50,6 +50,7 @@ export function buildDetailMarkup({ state, activeRecord }) {
   return `
     <section class="lab-dossier" aria-label="${activeRecord.title}">
       <button class="lab-dossier-close" data-action="detail/close">Close</button>
+      <div class="lab-dossier-hero" style="background-image:url('${activeRecord.cover}')"></div>
       <div class="lab-dossier-body">${activeRecord.details}</div>
     </section>
   `;
