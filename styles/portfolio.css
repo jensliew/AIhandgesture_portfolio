@@ -88,11 +88,24 @@ body::before {
   justify-content: space-between;
 }
 
+.lab-identity-body {
+  display: grid;
+  gap: 14px;
+}
+
 .lab-eyebrow {
   margin: 0 0 16px;
   color: var(--accent-cyan);
   font-size: 0.8rem;
   letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.lab-manual-mode {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -107,6 +120,16 @@ body::before {
   max-width: 18rem;
   color: var(--ink-muted);
   line-height: 1.6;
+}
+
+.lab-dossier-trigger {
+  align-self: flex-start;
+  border: 1px solid rgba(99, 224, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.85rem 1.1rem;
+  color: var(--ink-strong);
+  background: rgba(255, 255, 255, 0.04);
+  font: inherit;
 }
 
 .lab-showcase-stage {
@@ -207,6 +230,65 @@ body::before {
   display: contents;
 }
 
+.lab-dossier {
+  position: fixed;
+  inset: 24px 24px 24px auto;
+  z-index: 4;
+  display: grid;
+  gap: 18px;
+  width: min(460px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  border: 1px solid var(--border-soft);
+  border-radius: 28px;
+  padding: 24px;
+  overflow: auto;
+  background: rgba(11, 15, 24, 0.94);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-deep);
+}
+
+.lab-dossier-close {
+  justify-self: end;
+  border: 0;
+  padding: 0;
+  color: var(--accent-cyan);
+  background: transparent;
+  font: inherit;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lab-dossier-body {
+  display: grid;
+  gap: 18px;
+}
+
+.lab-dossier-body .detail-hero {
+  min-height: 220px;
+  border-radius: 20px;
+  background-position: center;
+  background-size: cover;
+}
+
+.lab-dossier-body .detail-content-wrap {
+  display: grid;
+  gap: 14px;
+}
+
+.lab-dossier-body .subtitle,
+.lab-dossier-body p,
+.lab-dossier-body li {
+  color: var(--ink-muted);
+}
+
+.lab-dossier-body h1,
+.lab-dossier-body h2,
+.lab-dossier-body h3,
+.lab-dossier-body p,
+.lab-dossier-body ul {
+  margin: 0;
+}
+
 @media (max-width: 1100px) {
   body {
     overflow: auto;
@@ -219,5 +301,12 @@ body::before {
 
   .lab-showcase-stage {
     min-height: 48vh;
+  }
+
+  .lab-dossier {
+    position: static;
+    width: auto;
+    max-height: none;
+    margin: 0 24px 24px;
   }
 }

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { portfolioRecords, uiCopy } from "../scripts/portfolio-data.mjs";
 import { createInitialState } from "../scripts/portfolio-state.mjs";
-import { buildShellMarkup } from "../scripts/portfolio-render.mjs";
+import { buildDetailMarkup, buildShellMarkup } from "../scripts/portfolio-render.mjs";
 
 test("buildShellMarkup includes the three-panel lab structure", () => {
   const state = createInitialState(portfolioRecords);
@@ -19,4 +19,12 @@ test("buildShellMarkup includes the three-panel lab structure", () => {
   assert.match(html, /<div id="css3d-container" aria-hidden="true"><\/div>/);
   assert.match(html, /<section id="lab-detail-root"><\/section>/);
   assert.match(html, /<section id="lab-support-root"><\/section>/);
+});
+
+test("buildDetailMarkup renders the current project title and manual close control", () => {
+  const state = { ...createInitialState(portfolioRecords), detail: { isOpen: true } };
+  const html = buildDetailMarkup({ state, activeRecord: portfolioRecords[0], copy: uiCopy.en });
+
+  assert.match(html, /Liew Shen Wei/);
+  assert.match(html, /data-action="detail\/close"/);
 });

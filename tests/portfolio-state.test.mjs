@@ -49,6 +49,19 @@ test("reduceAppState handles project selection by updating the active record", (
   assert.equal(nextState.mode, "browse");
 });
 
+test("reduceAppState changes the active project and closes the dossier", () => {
+  const initialState = createInitialState(portfolioRecords);
+  const detailState = reduceAppState(initialState, { type: "detail/open" });
+  const nextState = reduceAppState(detailState, {
+    type: "project/select",
+    payload: portfolioRecords[2].id
+  });
+
+  assert.equal(nextState.projects.activeId, portfolioRecords[2].id);
+  assert.equal(nextState.detail.isOpen, false);
+  assert.equal(nextState.mode, "browse");
+});
+
 test("reduceAppState closes detail without dropping sibling detail fields", () => {
   const initialState = {
     ...createInitialState(portfolioRecords),
