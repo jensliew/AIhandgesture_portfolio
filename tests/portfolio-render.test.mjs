@@ -33,3 +33,23 @@ test("buildDetailMarkup renders the current project title, manual close control,
   assert.match(html, /class="detail-content-wrap"/);
   assert.match(html, />Close<\/button>/);
 });
+
+test("buildShellMarkup shows browse-first camera guidance without blocking manual navigation", () => {
+  const state = {
+    ...createInitialState(portfolioRecords),
+    camera: { status: "denied", enabled: false }
+  };
+  const html = buildShellMarkup({
+    state,
+    records: portfolioRecords,
+    copy: uiCopy.en,
+    cameraMessage:
+      "Camera access was denied. Continue browsing manually or try enabling gesture mode again."
+  });
+
+  assert.match(html, /class="lab-camera-panel"/);
+  assert.match(html, /data-camera-status="denied"/);
+  assert.match(html, /Camera access was denied/);
+  assert.match(html, /data-action="camera\/request"/);
+  assert.match(html, /Browse manually/);
+});

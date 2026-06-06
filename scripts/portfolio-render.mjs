@@ -1,6 +1,10 @@
 const normalizeBrief = (brief) => brief.replace(/<br\s*\/?>/gi, " ");
 
-export function buildShellMarkup({ state, records, copy }) {
+function getGestureButtonLabel(state, copy) {
+  return state.camera.enabled ? copy.disableGesture : copy.enableGesture;
+}
+
+export function buildShellMarkup({ state, records, copy, cameraMessage = "" }) {
   const activeRecord = records.find((record) => record.id === state.projects.activeId) ?? null;
   const directoryItems = records
     .map(
@@ -15,6 +19,7 @@ export function buildShellMarkup({ state, records, copy }) {
   `
     )
     .join("");
+  const cameraPanelClass = state.camera.status === "requesting" ? "lab-camera-panel is-pending" : "lab-camera-panel";
 
   return `
     <div class="lab-shell">
@@ -33,7 +38,11 @@ export function buildShellMarkup({ state, records, copy }) {
         <div class="lab-stage-overlay"></div>
       </main>
       <aside class="lab-directory-rail" data-panel="project-directory">
-        <button class="lab-gesture-toggle" data-action="camera/request">${copy.enableGesture}</button>
+        <button class="lab-gesture-toggle" data-action="camera/request"${state.camera.status === "requesting" ? " disabled" : ""}>${getGestureButtonLabel(state, copy)}</button>
+        <section class="${cameraPanelClass}" aria-live="polite" data-camera-status="${state.camera.status}">
+          <strong>${copy.permissionTitle}</strong>
+          <p>${cameraMessage}</p>
+        </section>
         <div class="lab-directory-list">${directoryItems}</div>
       </aside>
     </div>
