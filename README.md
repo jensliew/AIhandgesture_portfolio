@@ -1,84 +1,107 @@
 # AI Hand Gesture Portfolio
 
-An interactive 3D portfolio website controlled entirely by **AI-powered hand gesture recognition**. Navigate through project cards, open details, and scroll — all without touching your keyboard or mouse.
+An interactive 3D portfolio for Jens Liew, built around a premium lab-showcase experience. Users can browse project cards manually with a trackpad, mouse wheel, or touch swipe, then opt into camera-based hand gestures for hands-free navigation.
 
-## ✨ Features
+Live site: [https://jensliew.github.io/AIhandgesture_portfolio](https://jensliew.github.io/AIhandgesture_portfolio)
 
-- **Hand Gesture Navigation** — Uses MediaPipe Hands for real-time gesture detection via webcam
-- **3D Card Carousel** — Built with Three.js and CSS3DRenderer for immersive project browsing
-- **Gesture Controls:**
-  - ✋ Open Palm → Swipe through cards / Scroll detail pages
-  - ✊ Fist → Brake and lock focus
-  - 🖖 Index + Thumb Spread → Enter detail view
-  - 🤏 Index + Thumb Pinch → Exit detail view
-- **Privacy-First** — All processing happens locally in the browser. No data is recorded or transmitted.
-- **Bilingual Instructions** — Toggle between English and Mandarin (中文)
-- **High-Tech Background** — Animated particle systems, grid floors, floating rings, hexagons, and neural connection lines
+## Highlights
 
-## 🛠 Tech Stack
+- 3D project-card showcase powered by Three.js and CSS3DRenderer.
+- Optional in-browser hand gesture controls using MediaPipe Hands.
+- Manual browsing support for trackpad, mouse wheel, touch screens, and keyboard-free mobile use.
+- Animated detail transitions with GSAP.
+- Project detail pages with gesture and manual scrolling.
+- English and Mandarin interface copy.
+- Privacy-first camera flow: hand tracking runs in the browser and does not upload video.
 
-- **Three.js** — 3D rendering and particle systems
-- **MediaPipe Hands** — AI hand landmark detection
-- **CSS3DRenderer** — 3D card positioning in DOM
-- **GSAP** — Smooth animations and transitions
-- **Vanilla HTML/CSS/JS** — No build tools required
+## Gesture Map
 
-## 🚀 Live Demo
+Gesture mode is optional. After enabling camera access:
 
-👉 [https://jensliew.github.io/AIhandgesture_portfolio](https://jensliew.github.io/AIhandgesture_portfolio)
+| Gesture | Action |
+| --- | --- |
+| Full open hand | Move left or right to swipe cards. In details, move up or down to scroll. |
+| Fist | Release the carousel and snap to the nearest card. |
+| Zoom pose | Open the selected project details. |
+| Pinch | Exit details and return to card browsing. |
 
-## 📁 Project Structure
+## Tech Stack
 
+- HTML, CSS, and vanilla JavaScript modules
+- Three.js
+- Three.js CSS3DRenderer
+- MediaPipe Hands
+- GSAP
+- Google Fonts
+
+External libraries are loaded from CDNs in `index.html`, so there is no npm install step for the current version.
+
+## Run Locally
+
+Use a local web server instead of opening `index.html` directly. This keeps ES modules, CDN imports, and camera permissions working correctly.
+
+```bash
+cd /Users/jensliew/MyPortfolio
+python3 -m http.server 4173
 ```
-├── index.html          # Main application file
-├── images/
-│   ├── profile.png     # Profile photo
-│   ├── seatong1-5.png  # SeaTong project screenshots
-│   ├── awsRSVP1-4.png  # AWS RSVP project screenshots
-│   └── lms1.png.webp   # LMS project screenshot
-└── README.md
+
+Then open:
+
+```text
+http://127.0.0.1:4173/
 ```
 
-## 🖥 Requirements
+Camera access works best on `localhost`, `127.0.0.1`, or HTTPS.
 
-- A modern browser (Chrome, Edge, Firefox) with webcam access
-- HTTPS is required for camera API (GitHub Pages provides this automatically)
+## Project Structure
 
-## 📦 Deployment (GitHub Pages)
+```text
+.
+|-- index.html
+|-- images/
+|   |-- profile.png
+|   |-- seatong*.png
+|   |-- awsRSVP*.png
+|   `-- lms1.png.webp
+|-- scripts/
+|   |-- portfolio-app.mjs
+|   |-- portfolio-data.mjs
+|   |-- portfolio-gestures.mjs
+|   |-- portfolio-render.mjs
+|   |-- portfolio-scene.mjs
+|   `-- portfolio-state.mjs
+|-- styles/
+|   `-- portfolio.css
+`-- README.md
+```
 
-1. **Rename the HTML file:**
-   ```bash
-   mv ai_studio_code.html index.html
-   ```
+## Main Modules
 
-2. **Initialize git and push:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit - AI Hand Gesture Portfolio"
-   git remote add origin https://github.com/jensliew/AIhandgesture_portfolio.git
-   git branch -M main
-   git push -u origin main
-   ```
+- `scripts/portfolio-app.mjs` coordinates rendering, gestures, detail transitions, and UI events.
+- `scripts/portfolio-data.mjs` stores portfolio records and bilingual UI copy.
+- `scripts/portfolio-gestures.mjs` handles MediaPipe gesture detection and camera status messaging.
+- `scripts/portfolio-scene.mjs` builds the Three.js scene, card carousel, and manual swipe behavior.
+- `scripts/portfolio-render.mjs` generates shell, detail, language, and gesture-help markup.
+- `scripts/portfolio-state.mjs` keeps app state transitions predictable.
+- `styles/portfolio.css` contains the full visual system, responsive layout, and motion styling.
 
-3. **Enable GitHub Pages:**
-   - Go to your repo: https://github.com/jensliew/AIhandgesture_portfolio
-   - Navigate to **Settings** → **Pages**
-   - Under "Source", select **Deploy from a branch**
-   - Choose branch: `main`, folder: `/ (root)`
-   - Click **Save**
+## Deployment
 
-4. **Wait 1-2 minutes**, then your site is live at:
-   ```
-   https://jensliew.github.io/AIhandgesture_portfolio
-   ```
+This repository is ready for GitHub Pages as a static site. The entry file is already `index.html`, so no build command is required.
 
-## 👤 Author
+Recommended GitHub Pages settings:
 
-**Liew Shen Wei (Jens)**
+- Source: deploy from a branch
+- Branch: `main`
+- Folder: `/ (root)`
+
+## Author
+
+Liew Shen Wei (Jens)
+
 - Email: jensliew0704@gmail.com
 - LinkedIn: [linkedin.com/in/shen-wei-liew-9341a430b](https://www.linkedin.com/in/shen-wei-liew-9341a430b)
 
-## 📄 License
+## License
 
 This project is for personal portfolio use.
