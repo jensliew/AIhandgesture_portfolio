@@ -6,18 +6,40 @@ export const uiCopy = {
     enableGesture: "Enable gesture mode",
     disableGesture: "Disable gesture mode",
     browseMode: "Browse manually",
+    viewDetails: "View details",
+    viewDetailsHint: "Open the selected project",
+    backToBrowse: "Back",
     helpTitle: "Gesture controls",
+    helpHint: "Need gestures?",
+    gestureGuideTitle: "Gesture map",
     permissionTitle: "Gesture mode uses your camera in-browser",
-    permissionBody: "Nothing is uploaded. You can continue browsing without camera access."
+    permissionBody: "Nothing is uploaded. You can continue browsing without camera access.",
+    gestureInstructions: [
+      { command: "Full open hand", description: "Move left or right to swipe cards. In details, move up or down to scroll." },
+      { command: "Fist", description: "Release the card carousel and snap to the nearest card." },
+      { command: "Zoom pose", description: "Open the selected project details." },
+      { command: "Pinch", description: "Exit details and return to card browsing." }
+    ]
   },
   cn: {
     eyebrow: "互动实验室",
     enableGesture: "启用手势模式",
     disableGesture: "关闭手势模式",
     browseMode: "手动浏览",
+    viewDetails: "查看详情",
+    viewDetailsHint: "打开当前项目详情",
+    backToBrowse: "返回",
     helpTitle: "手势控制",
+    helpHint: "需要手势说明？",
+    gestureGuideTitle: "手势地图",
     permissionTitle: "手势模式会在浏览器内使用相机",
-    permissionBody: "不会上传任何内容，你也可以继续手动浏览。"
+    permissionBody: "不会上传任何内容，你也可以继续手动浏览。",
+    gestureInstructions: [
+      { command: "全掌张开", description: "左右移动切换卡片。在详情页上下移动即可滚动。" },
+      { command: "握拳", description: "松开轮播并吸附到最近的卡片。" },
+      { command: "放大手势", description: "打开当前项目详情。" },
+      { command: "捏合", description: "离开详情页，回到卡片浏览。" }
+    ]
   }
 };
 
@@ -60,7 +82,7 @@ export const portfolioRecords = [
   {
     id: 1,
     indexStr: "02",
-    title: "EXPERIENCE",
+    title: "Experience",
     brief: "Professional Internships<br>Software Engineering",
     cover: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800",
     details: `

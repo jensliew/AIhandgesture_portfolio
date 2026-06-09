@@ -63,6 +63,15 @@ export function getCameraStatusMessage(status, language = "en") {
   return messages[status] ?? CAMERA_STATUS_MESSAGES.en[status] ?? "";
 }
 
+export function computeDetailScrollDelta({ previousPalmY, palmY, sensitivity = 3000, threshold = 0.005 }) {
+  if (!Number.isFinite(previousPalmY) || !Number.isFinite(palmY)) {
+    return 0;
+  }
+
+  const deltaY = palmY - previousPalmY;
+  return Math.abs(deltaY) > threshold ? -deltaY * sensitivity : 0;
+}
+
 function getUnavailableSession(onStatus) {
   onStatus?.("unavailable");
   return null;
@@ -101,6 +110,7 @@ export async function startGestureSession({
       const landmarks = results?.multiHandLandmarks?.[0];
 
       if (!landmarks) {
+        onGesture?.("NONE", results);
         return;
       }
 

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { classifyGesture, getCameraStatusMessage, startGestureSession } from "../scripts/portfolio-gestures.mjs";
+import { classifyGesture, computeDetailScrollDelta, getCameraStatusMessage, startGestureSession } from "../scripts/portfolio-gestures.mjs";
 
 test("classifyGesture returns OPEN for a wide four-finger spread", () => {
   const landmarks = Array.from({ length: 21 }, () => ({ x: 0.5, y: 0.5, z: 0 }));
@@ -19,6 +19,13 @@ test("getCameraStatusMessage returns a friendly manual fallback for denied permi
     getCameraStatusMessage("denied", "en"),
     "Camera access was denied. Continue browsing manually or try enabling gesture mode again."
   );
+});
+
+test("computeDetailScrollDelta converts palm movement into panel scroll", () => {
+  const scrollDelta = computeDetailScrollDelta({ previousPalmY: 0.4, palmY: 0.45 });
+
+  assert.ok(Math.abs(scrollDelta - -150) < 0.000001);
+  assert.equal(computeDetailScrollDelta({ previousPalmY: 0.4, palmY: 0.402 }), 0);
 });
 
 test("startGestureSession reports unavailable when setup throws before the camera starts", async () => {
@@ -39,4 +46,38 @@ test("startGestureSession reports unavailable when setup throws before the camer
 
   assert.equal(session, null);
   assert.deepEqual(statuses, ["unavailable"]);
+});
+
+test("startGestureSession emits NONE when a processed frame has no hand landmarks", async () => {
+  const gestures = [];
+  let resultsHandler = null;
+
+  class HandsCtor {
+    setOptions() {}
+    onResults(handler) {
+      resultsHandler = handler;
+    }
+    async send() {
+      resultsHandler?.({ multiHandLandmarks: [] });
+    }
+  }
+
+  class CameraCtor {
+    constructor(videoElement, options) {
+      this.options = options;
+    }
+    async start() {
+      await this.options.onFrame();
+    }
+  }
+
+  const session = await startGestureSession({
+    videoElement: {},
+    onGesture: (gesture) => gestures.push(gesture),
+    HandsCtor,
+    CameraCtor
+  });
+
+  assert.equal(typeof session.stop, "function");
+  assert.deepEqual(gestures, ["NONE"]);
 });
